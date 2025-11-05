@@ -1,0 +1,29 @@
+{
+  "name": "sky0-token-distribution-poc",
+  "version": "1.0.0",
+  "description": "POC for distributing SKY0 tokens based on leaderboard points using Helius Airship",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "distribute": "node distribute.js",
+    "create-token": "node create-token.js",
+    "test": "node test-distribution.js",
+    "generate-keypair": "node generate-keypair.js",
+    "report": "node generate-report.js",
+    "setup": "npm install && cp .env.example .env && echo '✅ Setup complete! Edit .env file with your configuration.'"
+  },
+  "keywords": [
+    "solana",
+    "helius",
+    "airship",
+    "token",
+    "distribution"
+  ],
+  "dependencies": {
+    "@solana/web3.js": "^1.87.6",
+    "@solana/spl-token": "^0.3.9",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2"
+  }
+}
