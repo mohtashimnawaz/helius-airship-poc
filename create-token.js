@@ -14,6 +14,7 @@ import {
 } from '@solana/spl-token';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import bs58 from 'bs58';
 
 dotenv.config();
 
@@ -30,14 +31,29 @@ async function createSKY0Token() {
   );
 
   // Load payer wallet
-  const privateKeyArray = JSON.parse(process.env.WALLET_PRIVATE_KEY || '[]');
-  if (privateKeyArray.length === 0) {
+  const privateKey = process.env.WALLET_PRIVATE_KEY;
+  if (!privateKey) {
     console.error('❌ Please set WALLET_PRIVATE_KEY in .env file');
     console.log('💡 Generate a keypair using: node generate-keypair.js');
     process.exit(1);
   }
 
-  const payer = Keypair.fromSecretKey(Uint8Array.from(privateKeyArray));
+  // Support both base58 and JSON array formats
+  let payer;
+  try {
+    // Try base58 format first
+    payer = Keypair.fromSecretKey(bs58.decode(privateKey));
+  } catch (e) {
+    try {
+      // Fall back to JSON array format
+      const privateKeyArray = JSON.parse(privateKey);
+      payer = Keypair.fromSecretKey(Uint8Array.from(privateKeyArray));
+    } catch (e2) {
+      console.error('❌ Invalid WALLET_PRIVATE_KEY format');
+      console.log('💡 Use either base58 string or JSON array format');
+      process.exit(1);
+    }
+  }
   console.log('📍 Payer Address:', payer.publicKey.toString());
 
   // Check balance

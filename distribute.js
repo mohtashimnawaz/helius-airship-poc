@@ -15,6 +15,7 @@ import fs from 'fs';
 import csv from 'csv-parser';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import bs58 from 'bs58';
 
 dotenv.config();
 
@@ -173,8 +174,25 @@ async function distributeManually(distribution, mintAddress) {
     'confirmed'
   );
 
-  const privateKeyArray = JSON.parse(process.env.WALLET_PRIVATE_KEY || '[]');
-  const payer = Keypair.fromSecretKey(Uint8Array.from(privateKeyArray));
+  const privateKey = process.env.WALLET_PRIVATE_KEY;
+  if (!privateKey) {
+    console.error('❌ WALLET_PRIVATE_KEY not set in .env file');
+    process.exit(1);
+  }
+
+  // Support both base58 and JSON array formats
+  let payer;
+  try {
+    payer = Keypair.fromSecretKey(bs58.decode(privateKey));
+  } catch (e) {
+    try {
+      const privateKeyArray = JSON.parse(privateKey);
+      payer = Keypair.fromSecretKey(Uint8Array.from(privateKeyArray));
+    } catch (e2) {
+      console.error('❌ Invalid WALLET_PRIVATE_KEY format');
+      process.exit(1);
+    }
+  }
 
   console.log('📍 Distributor Address:', payer.publicKey.toString());
 
