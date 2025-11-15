@@ -5,8 +5,16 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "distribute": "node distribute.js",
+    "check-wallet": "node check-wallet.js",
+    "distribute": "node generate-airship-csv.js",
+    "distribute-airship": "bash distribute-with-airship.sh",
+    "distribute-airship-auto": "node distribute-airship-programmatic.js",
+    "distribute-spl": "node distribute-spl-auto.js",
+    "airship": "node generate-airship-csv.js",
     "create-token": "node create-token.js",
+    "create-compressed-token": "node create-compressed-token.js",
+    "distribute-compressed": "node distribute-compressed.js",
+    "decompress-tokens": "node decompress-tokens.js",
     "test": "node test-distribution.js",
     "generate-keypair": "node generate-keypair.js",
     "report": "node generate-report.js",
@@ -20,11 +28,14 @@
     "distribution"
   ],
   "dependencies": {
+    "@lightprotocol/compressed-token": "^0.22.0",
+    "@lightprotocol/stateless.js": "^0.22.0",
     "@solana/spl-token": "^0.3.9",
     "@solana/web3.js": "^1.87.6",
     "axios": "^1.6.2",
     "bs58": "^6.0.0",
     "csv-parser": "^3.0.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "helius-airship-core": "^0.6.1"
   }
 }

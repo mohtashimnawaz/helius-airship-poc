@@ -1,6 +1,6 @@
 # SKY0 Token Distribution POC
 
-A complete proof of concept for distributing SKY0 tokens based on leaderboard points using Helius Airship.
+A complete proof of concept for distributing SKY0 tokens based on leaderboard points using Solana SPL tokens.
 
 ## 🎯 Overview
 
@@ -8,8 +8,24 @@ This POC demonstrates:
 - Creating and minting 1 billion SKY0 tokens with frozen mint authority
 - Reading leaderboard data from CSV
 - Calculating proportional token distribution based on points
-- Distributing ~100M tokens per period using Helius Airship
+- Distributing ~100M tokens per period to users
 - Automatic creation of associated token accounts
+- **Optional**: Integration with Helius AirShip for ZK-compressed transfers (see [AIRSHIP_INTEGRATION.md](docs/AIRSHIP_INTEGRATION.md))
+
+## ✅ Current Status
+
+**Successfully Implemented:**
+- ✅ Token created: `DUQjxhmeSaAXcndNdkiW8FyC6dNBMrEShgtNnVpaUdZQ` (Regular SPL)
+- ✅ Compressed token created: `AafQ4XrybDmktNyybxVYJ7R9Hts9dmx4mjvmqq5jVJix` (ZK Compressed)
+- ✅ 1 billion SKY0 tokens minted (both types)
+- ✅ Mint authority frozen (supply is fixed)
+- ✅ Distribution tested with 3 recipients (regular SPL)
+- ✅ All transfers successful on devnet
+- ✅ **Compressed token distribution ready for massive scale**
+
+**Distribution Methods:**
+1. **Regular SPL** - Use for <1,000 recipients (~$0.002/recipient)
+2. **Compressed (ZK)** - Use for >10,000 recipients (~$0.0000001/recipient) 🚀
 
 ## 🏗️ Architecture
 
@@ -28,9 +44,9 @@ This POC demonstrates:
          │
          ▼
 ┌─────────────────┐
-│  Helius         │
-│  Airship API    │
-│  (Bulk Send)    │
+│  SPL Token      │
+│  Transfers      │
+│  (Standard)     │
 └────────┬────────┘
          │
          ▼
@@ -39,6 +55,9 @@ This POC demonstrates:
 │  to Users       │
 └─────────────────┘
 ```
+
+**Optional Enhancement:**
+For massive scale (>10K recipients), see [Helius AirShip Integration Guide](docs/AIRSHIP_INTEGRATION.md) for ZK-compressed transfers.
 
 ## 📋 Prerequisites
 
@@ -127,30 +146,44 @@ This will:
 - Show results without sending any tokens
 - Test multiple scenarios
 
-### 6. Create the SKY0 Token
+### 6. Choose Your Distribution Method
 
+#### Option A: Regular SPL Tokens (for <1,000 recipients)
+
+**Create token:**
 ```bash
 npm run create-token
 ```
 
-This will:
-- Create a new SPL token mint
-- Mint 1 billion tokens
-- Freeze the mint authority (no more tokens can be minted)
-- Save token info to `token-info.json`
-- Update `.env` with the mint address
-
-### 7. Distribute Tokens
-
+**Distribute:**
 ```bash
 npm run distribute
 ```
 
-This will:
-- Read the leaderboard
-- Calculate proportional distribution
-- Create the Helius Airship payload
-- Save distribution records
+This method:
+- ✅ Works with all wallets immediately
+- ✅ Simple and straightforward
+- ✅ Cost: ~$0.002 per recipient
+- ✅ Best for small to medium airdrops
+
+#### Option B: Compressed Tokens (for >10,000 recipients) 🚀
+
+**Create compressed token:**
+```bash
+npm run create-compressed-token
+```
+
+**Distribute with ZK compression:**
+```bash
+npm run distribute-compressed
+```
+
+This method:
+- 🚀 Up to 5000x cheaper!
+- 🚀 Cost: ~$0.0000001 per recipient
+- 🚀 Perfect for massive airdrops
+- ⚠️  Recipients need to decompress (we provide tools)
+- 📚 See [Compressed Tokens Guide](docs/COMPRESSED_TOKENS_GUIDE.md)
 
 ## 📊 Distribution Logic
 

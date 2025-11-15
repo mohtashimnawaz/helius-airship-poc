@@ -1,0 +1,13 @@
+{
+  "type": "compressed",
+  "mint": "Dz9pBHLcJ7ov1gHECRhorENZbgadVsPz8bAMmRUtcEYo",
+  "decimals": 9,
+  "totalSupply": 1000000000,
+  "mintAuthority": "2qtosMyj7gqxEnVadAV849mWDVVKNjeSsexh1PkPEzxY",
+  "createdAt": "2025-11-14T14:59:35.367Z",
+  "network": "devnet",
+  "compression": "zk-compression-enabled",
+  "transactions": {
+    "creation": "3TXyHJNMKqbDhKQ3RHc1yHhLB8TCf2dJ9BYACokZJHdtaGEcx7W74Xpfwsz2vCubYH73nUjWD87iiyohvPuz3wgt"
+  }
+}

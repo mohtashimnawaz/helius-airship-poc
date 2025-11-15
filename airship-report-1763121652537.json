@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-11-14T12:00:52.536Z",
+  "tokenMint": "H6WW4kMtQ53G7cBWhCEr5AkPDpzP6Bww7WDyTr767aie",
+  "tokensPerPeriod": 100000000,
+  "distribution": [
+    {
+      "walletAddress": "FWKcvRkDJHHvP2s5Sege6NA6vdRmBzcPinRRAxwh1zwc",
+      "points": 100,
+      "tokenAmount": 25000000,
+      "tokenAmountWithDecimals": 25000000000000000,
+      "percentage": "25.00"
+    },
+    {
+      "walletAddress": "BYmeAV9N3EXoij7BfYjGSVfmAn2aHXLt2HWKnxn99po8",
+      "points": 250,
+      "tokenAmount": 62500000,
+      "tokenAmountWithDecimals": 62500000000000000,
+      "percentage": "62.50"
+    },
+    {
+      "walletAddress": "6xX9G1jy4quapnew9CpHd1rz3pWKgysM2Q4MMBkmQMxN",
+      "points": 50,
+      "tokenAmount": 12500000,
+      "tokenAmountWithDecimals": 12500000000000000,
+      "percentage": "12.50"
+    }
+  ],
+  "summary": {
+    "totalRecipients": 3,
+    "totalPoints": 400,
+    "totalTokens": 100000000
+  }
+}
